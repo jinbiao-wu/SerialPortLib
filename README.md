@@ -30,3 +30,23 @@ SerialPortReadThread：串口消息读取线程，主要读取身份证信息，
 ### 实现OnOpenSerialPortListener，监听串口回调
 ### 实现OnSerialPortDataListener，监听数据收发回调
 ### SerialPortManager.getInstatce().openSerialPort(new File(path), 115200);打开串口
+### public void onDataReceived(String[] decodeInfo, int type) {
+//接收读取信息，要切换回UI线程
+"姓名：" + decodeInfo[0] + "\n" + "性别："
+							+ decodeInfo[1] + "\n" + "民族：" + decodeInfo[2]
+							+ "\n" + "出生日期：" + decodeInfo[3] + "\n" + "地址："
+							+ decodeInfo[4] + "\n" + "身份号码：" + decodeInfo[5]
+							+ "\n" + "签发机关：" + decodeInfo[6] + "\n" + "有效期限："
+							+ decodeInfo[7] + "-" + decodeInfo[8] + "\n"
+							+ decodeInfo[9] + "\n");
+					if (type == 1) {
+						FileInputStream fis = new FileInputStream(
+								Environment.getExternalStorageDirectory()
+										+ "/serialport_lib/zp.bmp");
+						Bitmap bmp = BitmapFactory.decodeStream(fis);
+						fis.close();
+						image.setImageBitmap(bmp);
+					} else {
+						照片解码失败，请检查路径
+					}
+} 
